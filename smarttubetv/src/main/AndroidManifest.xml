@@ -40,7 +40,7 @@
         android:required="false" />
     <uses-feature
         android:name="android.software.leanback"
-        android:required="true" />
+        android:required="false" />
 
     <!-- android:usesCleartextTraffic - allow HTTP traffic -->
     <!-- Alt cleartext options: https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted -->
@@ -153,6 +153,14 @@
 
         <activity
             android:name="com.liskovsoft.smartyoutubetv2.tv.ui.browse.BrowseActivity"
+            android:launchMode="singleInstance"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|layoutDirection"
+            android:screenOrientation="unspecified"/>
+
+        <!-- Phone/tablet UI root. Only used when Helpers.isAndroidTV() is false; see MainApplication#setupViewManager. -->
+        <activity
+            android:name="com.liskovsoft.smartyoutubetv2.mobile.ui.main.MobileMainActivity"
+            android:theme="@style/App.Theme.Mobile"
             android:launchMode="singleInstance"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|layoutDirection"
             android:screenOrientation="unspecified"/>

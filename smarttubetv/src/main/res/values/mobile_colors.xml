@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mobile_primary">#CC0000</color>
+    <color name="mobile_primary_dark">#990000</color>
+    <color name="mobile_accent">#CC0000</color>
+    <color name="mobile_thumbnail_placeholder">#DDDDDD</color>
+    <color name="mobile_badge_background">#B3000000</color>
+</resources>

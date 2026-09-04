@@ -89,17 +89,24 @@ public class MainApplication extends MultiDexApplication { // fix: Didn't find c
 
         Class<? extends AppDialogActivity> dialogClass = getDialogClass();
 
-        viewManager.setRoot(BrowseActivity.class);
+        // Phones/tablets get MobileMainActivity as the Browse root instead of the Leanback
+        // BrowseActivity. Everything else (Playback, Search, SignIn, Channel, etc.) keeps
+        // using its existing TV Activity, just parented to whichever root is active - so those
+        // screens are unchanged for now on both TV and mobile.
+        Class<? extends android.app.Activity> rootActivity =
+                Helpers.isAndroidTV(this) ? BrowseActivity.class : com.liskovsoft.smartyoutubetv2.mobile.ui.main.MobileMainActivity.class;
+
+        viewManager.setRoot(rootActivity);
         viewManager.register(SplashView.class, SplashActivity.class); // no parent, because it's root activity
-        viewManager.register(BrowseView.class, BrowseActivity.class); // no parent, because it's root activity
-        viewManager.register(PlaybackView.class, PlaybackActivity.class, BrowseActivity.class);
-        viewManager.register(AppDialogView.class, dialogClass, BrowseActivity.class);
-        viewManager.register(SearchView.class, SearchTagsActivity.class, BrowseActivity.class);
-        viewManager.register(SignInView.class, SignInActivity.class, BrowseActivity.class);
-        viewManager.register(AddDeviceView.class, AddDeviceActivity.class, BrowseActivity.class);
-        viewManager.register(ChannelView.class, ChannelActivity.class, BrowseActivity.class);
-        viewManager.register(ChannelUploadsView.class, ChannelUploadsActivity.class, BrowseActivity.class);
-        viewManager.register(WebBrowserView.class, WebBrowserActivity.class, BrowseActivity.class);
+        viewManager.register(BrowseView.class, rootActivity); // no parent, because it's root activity
+        viewManager.register(PlaybackView.class, PlaybackActivity.class, rootActivity);
+        viewManager.register(AppDialogView.class, dialogClass, rootActivity);
+        viewManager.register(SearchView.class, SearchTagsActivity.class, rootActivity);
+        viewManager.register(SignInView.class, SignInActivity.class, rootActivity);
+        viewManager.register(AddDeviceView.class, AddDeviceActivity.class, rootActivity);
+        viewManager.register(ChannelView.class, ChannelActivity.class, rootActivity);
+        viewManager.register(ChannelUploadsView.class, ChannelUploadsActivity.class, rootActivity);
+        viewManager.register(WebBrowserView.class, WebBrowserActivity.class, rootActivity);
     }
 
     /**

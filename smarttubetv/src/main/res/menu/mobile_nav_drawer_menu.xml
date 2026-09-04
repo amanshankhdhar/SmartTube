@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mobile_drawer_remote_control"
+        android:title="@string/mobile_drawer_remote_control" />
+    <item
+        android:id="@+id/mobile_drawer_language"
+        android:title="@string/mobile_drawer_language" />
+    <item
+        android:id="@+id/mobile_drawer_general"
+        android:title="@string/mobile_drawer_general" />
+    <item
+        android:id="@+id/mobile_drawer_interface"
+        android:title="@string/mobile_drawer_interface" />
+
+    <item android:title="@string/mobile_drawer_section_playback">
+        <menu>
+            <item
+                android:id="@+id/mobile_drawer_afr"
+                android:checkable="true"
+                android:title="@string/mobile_drawer_afr" />
+            <item
+                android:id="@+id/mobile_drawer_cc"
+                android:checkable="true"
+                android:title="@string/mobile_drawer_cc" />
+        </menu>
+    </item>
+
+    <item android:title="@string/mobile_drawer_section_features">
+        <menu>
+            <item
+                android:id="@+id/mobile_drawer_search"
+                android:title="@string/mobile_drawer_search" />
+            <item
+                android:id="@+id/mobile_drawer_sponsorblock"
+                android:title="@string/mobile_drawer_sponsorblock" />
+            <item
+                android:id="@+id/mobile_drawer_dearrow"
+                android:title="@string/mobile_drawer_dearrow" />
+        </menu>
+    </item>
+
+    <item android:title="@string/mobile_drawer_section_footer">
+        <menu>
+            <item
+                android:id="@+id/mobile_drawer_settings"
+                android:title="@string/mobile_drawer_settings" />
+            <item
+                android:id="@+id/mobile_drawer_accounts"
+                android:title="@string/mobile_drawer_accounts" />
+        </menu>
+    </item>
+
+</menu>

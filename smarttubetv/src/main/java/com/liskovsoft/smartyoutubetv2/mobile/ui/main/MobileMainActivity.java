@@ -1,6 +1,7 @@
 package com.liskovsoft.smartyoutubetv2.mobile.ui.main;
 
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class MobileMainActivity extends MotherActivity implements BrowseView {
     private MobileHomeFragment mHomeFragment;
     private boolean mProgressBarShowing;
     private final List<VideoGroup> mHomeRows = new ArrayList<>();
+    private final SparseArray<BrowseSection> mSectionsByIndex = new SparseArray<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +152,7 @@ public class MobileMainActivity extends MotherActivity implements BrowseView {
 
     @Override
     public void addSection(int index, BrowseSection section) {
-        // Bookkeeping only for now - Phase 1 renders whichever section selectSection() marks active.
+        mSectionsByIndex.put(index, section);
     }
 
     @Override
@@ -160,6 +162,7 @@ public class MobileMainActivity extends MotherActivity implements BrowseView {
 
     @Override
     public void removeAllSections() {
+        mSectionsByIndex.clear();
         mHomeRows.clear();
         if (mHomeFragment != null) {
             mHomeFragment.setRows(mHomeRows);
@@ -174,6 +177,13 @@ public class MobileMainActivity extends MotherActivity implements BrowseView {
         mHomeRows.clear();
         if (mHomeFragment != null) {
             mHomeFragment.setRows(mHomeRows);
+        }
+
+        // This is the actual trigger for content loading - without it, BrowsePresenter never
+        // fetches anything for this section (TV's BrowseFragment makes this same call).
+        BrowseSection section = mSectionsByIndex.get(index);
+        if (section != null && mBrowsePresenter != null) {
+            mBrowsePresenter.onSectionFocused(section.getId());
         }
     }
 

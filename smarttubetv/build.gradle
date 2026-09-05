@@ -109,6 +109,11 @@ android {
 
             if (keystorePropertiesFile.exists()) {
                 signingConfig signingConfigs.release
+            } else {
+                // No SIGNING_KEY secret configured (e.g. testing on a personal fork) - fall back
+                // to the auto-generated debug keystore so the APK is still installable. Set up
+                // the signing secrets later for real releases; this branch stops applying then.
+                signingConfig signingConfigs.debug
             }
         }
         // Use same key for release and debug for testing

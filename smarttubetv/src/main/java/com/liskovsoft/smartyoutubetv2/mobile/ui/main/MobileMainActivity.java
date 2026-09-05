@@ -42,7 +42,6 @@ public class MobileMainActivity extends MotherActivity implements BrowseView {
     private DrawerLayout mDrawerLayout;
     private BrowsePresenter mBrowsePresenter;
     private MobileHomeFragment mHomeFragment;
-    private boolean mShowingHomeSection;
     private boolean mProgressBarShowing;
     private final List<VideoGroup> mHomeRows = new ArrayList<>();
 
@@ -169,19 +168,18 @@ public class MobileMainActivity extends MotherActivity implements BrowseView {
 
     @Override
     public void selectSection(int index, boolean focusOnContent) {
-        mShowingHomeSection = mBrowsePresenter != null && mBrowsePresenter.isHomeSection();
-
-        if (mShowingHomeSection) {
-            mHomeRows.clear();
-            if (mHomeFragment != null) {
-                mHomeFragment.setRows(mHomeRows);
-            }
+        // Phase 1 only has one real content tab (Home), so render whatever section
+        // BrowsePresenter currently has active - this also covers its "boot into Music
+        // instead of an empty Home" fallback for signed-out/fresh installs.
+        mHomeRows.clear();
+        if (mHomeFragment != null) {
+            mHomeFragment.setRows(mHomeRows);
         }
     }
 
     @Override
     public void updateSection(VideoGroup group) {
-        if (!mShowingHomeSection || group == null) {
+        if (group == null) {
             return;
         }
 

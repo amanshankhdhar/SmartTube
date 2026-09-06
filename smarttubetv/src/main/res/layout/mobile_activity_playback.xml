@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black">
@@ -67,7 +68,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@null"
                 android:src="@android:drawable/ic_media_previous"
-                android:tint="@android:color/white" />
+                app:tint="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -114,7 +115,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@null"
                 android:src="@android:drawable/ic_media_pause"
-                android:tint="@android:color/white" />
+                app:tint="@android:color/white" />
 
         </FrameLayout>
 

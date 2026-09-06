@@ -189,6 +189,14 @@
             android:showWhenLocked="true"
             android:theme="@style/App.Theme.Leanback.Player"/>
 
+        <!-- Phone/tablet fullscreen player (phase 2a). See MainApplication#setupViewManager. -->
+        <activity
+            android:name="com.liskovsoft.smartyoutubetv2.mobile.ui.playback.MobilePlaybackActivity"
+            android:launchMode="singleInstance"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|layoutDirection"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/App.Theme.Mobile"/>
+
         <activity
             android:name="com.liskovsoft.smartyoutubetv2.tv.ui.search.tags.SearchTagsActivity"
             android:launchMode="singleInstance"

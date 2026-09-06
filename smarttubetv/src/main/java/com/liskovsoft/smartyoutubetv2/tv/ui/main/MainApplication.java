@@ -99,7 +99,11 @@ public class MainApplication extends MultiDexApplication { // fix: Didn't find c
         viewManager.setRoot(rootActivity);
         viewManager.register(SplashView.class, SplashActivity.class); // no parent, because it's root activity
         viewManager.register(BrowseView.class, rootActivity); // no parent, because it's root activity
-        viewManager.register(PlaybackView.class, PlaybackActivity.class, rootActivity);
+
+        Class<? extends android.app.Activity> playbackActivity =
+                Helpers.isAndroidTV(this) ? PlaybackActivity.class : com.liskovsoft.smartyoutubetv2.mobile.ui.playback.MobilePlaybackActivity.class;
+        viewManager.register(PlaybackView.class, playbackActivity, rootActivity);
+
         viewManager.register(AppDialogView.class, dialogClass, rootActivity);
         viewManager.register(SearchView.class, SearchTagsActivity.class, rootActivity);
         viewManager.register(SignInView.class, SignInActivity.class, rootActivity);

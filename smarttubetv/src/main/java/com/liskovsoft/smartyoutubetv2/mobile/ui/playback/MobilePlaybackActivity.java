@@ -841,7 +841,10 @@ public class MobilePlaybackActivity extends MotherActivity implements PlaybackVi
 
     @Override
     public void resetPlayerState() {
-        mVideo = null;
+        // NOTE: mVideo is deliberately NOT cleared here. VideoLoaderController#loadVideo()
+        // calls setVideo(item) immediately followed by resetPlayerState() - clearing mVideo
+        // here was wiping out the video that was just set, breaking every getVideo() call
+        // downstream (processFormatInfo()'s null guard, error handling, etc).
         mButtonStates.clear();
     }
 

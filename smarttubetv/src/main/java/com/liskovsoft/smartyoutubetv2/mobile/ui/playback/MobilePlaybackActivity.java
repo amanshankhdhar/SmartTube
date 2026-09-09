@@ -740,13 +740,20 @@ public class MobilePlaybackActivity extends MotherActivity implements PlaybackVi
 
     @Override
     public void restartEngine() {
-        // Error-recovery path - deferred; ErrorFixerController still runs, this just doesn't
-        // add a mobile-specific restart yet.
+        // Deferred via Handler: this can be called from inside the presenter's own controller
+        // dispatch loop (e.g. ErrorFixerController's long-buffering recovery), so rebuilding
+        // the engine synchronously here would re-enter that dispatch. Posting avoids that.
+        mHandler.post(() -> {
+            releasePlayer();
+            mExoPlayerController = new ExoPlayerController(this, mPlaybackPresenter);
+            createPlayer();
+            mPlaybackPresenter.onEngineInitialized();
+        });
     }
 
     @Override
     public void reloadPlayback() {
-        // Deferred alongside restartEngine().
+        restartEngine();
     }
 
     @Override

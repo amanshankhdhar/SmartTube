@@ -122,6 +122,7 @@ public class MobilePlaybackActivity extends MotherActivity implements PlaybackVi
 
         mExoPlayerController = new ExoPlayerController(this, mPlaybackPresenter);
         createPlayer();
+        mPlaybackPresenter.onEngineInitialized(); // triggers VideoLoaderController to actually load the video
 
         mPlaybackPresenter.onViewInitialized();
     }
@@ -327,6 +328,10 @@ public class MobilePlaybackActivity extends MotherActivity implements PlaybackVi
 
     private void releasePlayer() {
         mHandler.removeCallbacksAndMessages(null);
+
+        if (mPlaybackPresenter != null && mEngineInitialized) {
+            mPlaybackPresenter.onEngineReleased();
+        }
 
         if (mExoPlayerController != null) {
             mExoPlayerController.release();
